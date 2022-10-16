@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
+<head th:replace="fragments :: head">
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-    <h1 th:text="'Welcome ' + ${user.username} + '!'"></h1>
+    <h1 th:text="'Welcome, ' + ${user.username} + '!'"></h1>
 
     <a th:href="@{~/}">Take me to the menu!</a>
+    <br>
+    <br>
+<ul>Users
+    <li th:each="user : ${users}"> <p><a th:href="@{user/{id}(id=${user.id})}" th:text="${user.username}"></a></p></li>
+</ul>
 
 </body>
 </html>
