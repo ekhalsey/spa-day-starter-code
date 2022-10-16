@@ -14,13 +14,7 @@ public class UserController {
     private static boolean errorMessage = false;
     @GetMapping("add")
     public String addUserForm(Model model) {
-        if(errorMessage=true) {
-            String error = "Passwords did not match. Please try again.";
-            model.addAttribute("error", error);
-            errorMessage=false;
             return "user/add";
-        }
-        return "user/add";
     }
 
     @PostMapping("")
@@ -29,7 +23,10 @@ public class UserController {
         if(user.getPassword().equals(verify)) {
             return "user/index";
         }
-        errorMessage=true;
+        String error = "Passwords did not match. Please try again.";
+        model.addAttribute("error", error);
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("email", user.getEmail());
         return "user/add";
     }
 }
